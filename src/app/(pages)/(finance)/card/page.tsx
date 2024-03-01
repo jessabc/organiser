@@ -1,0 +1,26 @@
+'use client'
+
+import React from 'react'
+import Card from '@/app/_components/finance/Card'
+import CategorySection from '@/app/_components/finance/CategorySection'
+import IncomeExpenseCard from '@/app/_components/finance/IncomeExpenseCard'
+import TransactionSection from '@/app/_components/finance/TransactionSection'
+
+
+export default function page() {
+
+  const incomeExpenseCardEl = ['Income', 'Expense'].map(item => <IncomeExpenseCard key={item} type={item} />)
+
+  return (
+    <div>
+      <div className='flex flex-col gap-5 md:grid grid-cols-3'>
+        <Card/>
+        {incomeExpenseCardEl}
+      </div>
+      <div className='md:grid grid-cols-2 gap-7'>
+        <CategorySection/>
+        <TransactionSection/>
+      </div>
+    </div>
+  )
+}
