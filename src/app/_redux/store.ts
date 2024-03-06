@@ -1,7 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-
 import boardsReducer from './features/boards/boardsSlice'
-
 import currentBoardReducer from './features/boards/currentBoardSlice'
 import cardReducer from './features/card/cardSlice'
 

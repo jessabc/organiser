@@ -1,12 +1,11 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
-import MenuItem from './MenuItem'
-import { useAppSelector } from '@/app/_redux/hooks'
-import { RootState } from '@/app/_redux/store'
+import { Menu, Transition } from "@headlessui/react"
+import { Fragment } from "react"
 
+interface Props {
+  setSortQuery: React.Dispatch<React.SetStateAction<string>>
+}
 
-export default function SortDropdown({setSortQuery}) {
-
+export default function SortDropdown({setSortQuery}: Props) {
 
   return (
     <div className="">
@@ -14,7 +13,7 @@ export default function SortDropdown({setSortQuery}) {
         <div>
           <Menu.Button className="rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 flex gap-1">
             Sort by
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down"  width="18" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-down"  width="18" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
           </Menu.Button>
         </div>
         <Transition
@@ -32,12 +31,12 @@ export default function SortDropdown({setSortQuery}) {
               {({ active }) => (
                   <button
                   className={`${
-                      active ? 'bg-gray-100 ' : 'text-gray-900'
+                      active ? "bg-gray-100 " : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={() => setSortQuery('descending')}
+                  onClick={() => setSortQuery("descending")}
                   >
                     Date 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-down" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M16 15l-4 4" /><path d="M8 15l4 4" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-down" width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M16 15l-4 4" /><path d="M8 15l4 4" /></svg>
                   </button>
               )} 
             </Menu.Item>
@@ -45,12 +44,12 @@ export default function SortDropdown({setSortQuery}) {
               {({ active }) => (
                   <button
                   className={`${
-                      active ? 'bg-gray-100 ' : 'text-gray-900'
+                      active ? "bg-gray-100 " : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={() => setSortQuery('ascending')}
+                  onClick={() => setSortQuery("ascending")}
                   >
                     Date 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-up" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-narrow-up" width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
                   </button>
               )}
             </Menu.Item>
@@ -60,9 +59,9 @@ export default function SortDropdown({setSortQuery}) {
               {({ active }) => (
                   <button
                   className={`${
-                      active ? 'bg-gray-100 ' : 'text-gray-900'
+                      active ? "bg-gray-100" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={() => setSortQuery('')}
+                  onClick={() => setSortQuery("")}
                   >
                     Clear Sort
                   </button>

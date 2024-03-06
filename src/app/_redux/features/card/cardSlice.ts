@@ -1,49 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { transactions } from '@/app/_lib/transactionsData'
-
-
-// export interface ProductsState {
-//   value: IProduct[]
-// }
-
-interface Transaction {
-    id: number,
-    type: string,
-    amount: number,
-    category: number,
-    notes: number,
-}
-
-
-interface CardState {
-  amount: number,
-  categories: string[],
-  transactions: Transaction[]
-}
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   value: {
-    amount: 900,
-    categories: ['add', 'groceries', 'rent', 'salary'],
-    transactions: transactions,
+    amount: 0,
+    categories: [],
+    transactions: [],
   },
 }
 
 export const cardSlice = createSlice({
-  name: 'card',
+  name: "card",
   initialState,
   reducers: {
-    setCard: (state, action: PayloadAction<CardState>) => {
-      state.value = action.payload
+    setCard: (state, action) => {
+      state.value = {...action.payload}
     },
-    updateAmount: (state, action: PayloadAction<number>) => {
+    updateAmount: (state, action) => {
       state.value = {...state.value, amount: action.payload}
     },
-    updateCategories: (state, action: PayloadAction<string[]>) => {
+    updateCategories: (state, action) => {
       state.value = {...state.value, categories: action.payload}
     },
-    setAllTransactions: (state, action: PayloadAction<Transaction[]>) => {
+    setAllTransactions: (state, action) => {
       state.value = {...state.value, transactions: action.payload}
     },
   },

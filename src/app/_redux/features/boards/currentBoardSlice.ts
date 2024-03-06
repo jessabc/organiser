@@ -1,18 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { boards } from '@/app/_lib/projectsData'
-
-
-// export interface ProductsState {
-//   value: IProduct[]
-// }
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  value: boards[0],
+  value: { 
+    id: 0,
+    name: "",
+    columns: [],
+  },
 }
 
 export const currentBoardSlice = createSlice({
-  name: 'currentBoard',
+  name: "currentBoard",
   initialState,
   reducers: {
     setCurrentBoard: (state, action) => {
@@ -22,6 +19,6 @@ export const currentBoardSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setCurrentBoard  } = currentBoardSlice.actions
+export const { setCurrentBoard } = currentBoardSlice.actions
 
 export default currentBoardSlice.reducer 
