@@ -1,13 +1,13 @@
  {
     "amount": 900,
-    "categories": ["add", "groceries", "rent", "salary"],
+    "categories": ["Add New Category", "Groceries", "Rent", "Salary"],
     "transactions": [
         {
         "id": 1,
        "type": "expense",
        "amount": 10,
        "date": "2024-02-15",
-       "category": "groceries",
+       "category": "Groceries",
        "notes": "choc, biscuits etc"
     },
     {
@@ -15,7 +15,7 @@
        "type": "expense",
        "amount": 150,
        "date": "2024-01-25",
-       "category": "rent",
+       "category": "Rent",
        "notes": "money for rent"
     },
     {
@@ -23,7 +23,7 @@
        "type": "income",
        "amount": 100,
        "date": "2024-02-05",
-       "category": "salary",
+       "category": "Salary",
        "notes": "money from work"
     },
     {
@@ -31,7 +31,7 @@
        "type": "expense",
        "amount": 50,
        "date": "2024-01-07",
-       "category": "groceries",
+       "category": "Groceries",
        "notes": "coffee, milk etc"
     }
     ]

@@ -15,12 +15,6 @@ export default function Transaction({transaction}: Props) {
     thisTransaction: transaction
   }
 
-  const deleteModalProps = {
-    openButtonText: "delete",
-    header: "delete transaction",
-    thisTransaction: transaction
-  }
-
   return (
     <>
       <div className="flex justify-between gap-5 h-20 bg-opacity-40 items-center p-2 bg-white border shadow-sm rounded-xl">

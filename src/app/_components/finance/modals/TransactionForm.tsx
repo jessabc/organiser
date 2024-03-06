@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -21,7 +21,6 @@ const schema = yup.object({
 type FormData = yup.InferType<typeof schema>
 
 type Inputs = {
-  id: number,
   type: string,
   amount: string,
   date: string
@@ -31,11 +30,14 @@ type Inputs = {
 
 interface Props {
   closeModal: () => void,
-  transactionFormType: string,
-  thisTransaction: Transaction
+  modalProps: {
+    openButtonText: string,
+    header: string,
+    thisTransaction: Transaction 
+  }
 }
 
-export default function TransactionForm({closeModal, transactionFormType, thisTransaction}: Props) {
+export default function TransactionForm({closeModal, modalProps}: Props) {
 
   const [newCategoryVisible, setNewCategoryVisible] = useState(false)
   const [newCategory, setNewCategory] = useState("")
@@ -47,31 +49,25 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
   const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm<FormData>({
     resolver: yupResolver(schema)
   })
- 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset({ data: "" });
-    }
-  }, [isSubmitSuccessful]);
   
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     // new transaction object
     const newTransaction =   {
-      id: thisTransaction? thisTransaction.id : Math.random(),
+      id: modalProps.thisTransaction? modalProps.thisTransaction.id : Math.random(),
       type: data.type,
       amount: parseInt(data.amount),
       date: data.date,
-      category:  data.category === "add" ? newCategory : data.category,
+      category:  data.category === "Add New Category" ? newCategory : data.category,
       notes: data.notes,
     }
 
     // if new transaction then
-    if(transactionFormType === "new") {
+    if(modalProps.openButtonText === "new") {
       // add new transaction to transactions array
       dispatch(setAllTransactions([...card.transactions, newTransaction]))
     } else {
       // else if edited transaction replace old transaction with edited transaction
-      const updatedTransactions = card.transactions.map(transaction => transaction.id === thisTransaction.id ? newTransaction: transaction)
+      const updatedTransactions = card.transactions.map(transaction => transaction.id === modalProps.thisTransaction.id ? newTransaction: transaction)
       dispatch(setAllTransactions(updatedTransactions))
     }
   
@@ -92,7 +88,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
   } 
     
   const checkOnChange = (value: string) => {
-    if(value === "add") {
+    if(value === "Add New Category") {
       setNewCategoryVisible(true)
     } else {
       setNewCategoryVisible(false) 
@@ -113,7 +109,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
         </button>
 
         <div className="flex flex-col">
-          <h3 className="font-semibold text-lg text-gray-900 mb-5 dark:text-zinc-100">Add New Transaction</h3>
+          <h3 className="font-semibold text-lg text-gray-900 mb-5 dark:text-zinc-100">{modalProps.openButtonText === "new" ? "Add New" : "Edit"} Transaction</h3>
 
           {/* income/expense radio button */}
           <div className="flex flex-col gap-1 mb-5">
@@ -126,7 +122,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
                 type="radio" 
                 value="income" 
                 id="income" 
-                defaultChecked = {thisTransaction ?  thisTransaction.type === "income" ? true : false : false}
+                defaultChecked = {modalProps.thisTransaction ?  modalProps.thisTransaction.type === "income" ? true : false : false}
                 className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label 
@@ -143,7 +139,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
                 type="radio" 
                 value="expense" 
                 id="expense" 
-                defaultChecked = {thisTransaction ?  thisTransaction.type === "expense" ? true : false : true} 
+                defaultChecked = {modalProps.thisTransaction ?  modalProps.thisTransaction.type === "expense" ? true : false : true} 
                 className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label 
@@ -164,7 +160,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
             type="number"
               id="amount" 
               {...register("amount")} 
-              defaultValue={transactionFormType === "edit" ? thisTransaction.amount : null} placeholder="20" 
+              defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.amount : ""} placeholder="20" 
               className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 ${errors.amount ? "focus:outline-error ": ""}`}/>
           </div>
 
@@ -178,7 +174,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
             type="date"
               id="date" 
               {...register("date")} 
-              defaultValue={transactionFormType === "edit" ? thisTransaction.date : null} 
+              defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.date : ""} 
               className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 ${errors.date ? "focus:outline-error ": ""}`}/>
           </div>
 
@@ -190,7 +186,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
             </div>
             <input 
               id="notes" 
-              defaultValue={transactionFormType === "edit" ? thisTransaction.notes : null} 
+              defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.notes : ""} 
                     placeholder="e.g. coffee and pastry" 
               {...register("notes")} 
               className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full ${errors.notes ? "focus:outline-error ": ""} `}/>
@@ -210,7 +206,7 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
               id="category" 
               {...register("category")} 
               className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1  pl-2 outline-none focus:border-indigo-500 mb-2"
-              onChange={(e) => checkOnChange(e.target.value)} defaultValue={transactionFormType === "edit" && thisTransaction.category}
+              onChange={(e) => checkOnChange(e.target.value)} defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.category : ""}
               >
                 <option label="--Select Category-- "></option>
                 {categories.map(option => (
@@ -225,11 +221,13 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
             <div className={`flex justify-between items-center`}>
               <label 
               htmlFor="newCategory" 
-              className={`ck ${errors.newCategory ? "text-error": ""}`}
+              //    NEED TO FIX
+              // className={`${errors.newCategory?.message ? "text-error": ""}`}
               >
               New Category
               </label> 
-              <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.newCategory?.message}</p>
+              {/* NEED TO FIX */}
+              {/* <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.newCategory?.message}</p> */}
             </div>
             <input 
               id="newCategory" 
@@ -242,7 +240,6 @@ export default function TransactionForm({closeModal, transactionFormType, thisTr
 
           <input 
             type="submit" 
-            //  value="Create Task" 
             className="text-gray-50 bg-indigo-500 hover:bg-indigo-400 rounded-full py-2 my-2 cursor-pointer"
             />
         </div>

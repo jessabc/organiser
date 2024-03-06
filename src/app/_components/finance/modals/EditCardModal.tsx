@@ -31,6 +31,8 @@ export default function EditCardModal() {
       fields,
   } = useFieldArray({
       control,
+      // NEED TO FIX TS
+      // @ts-ignore
       name: "categories",
   }) 
 

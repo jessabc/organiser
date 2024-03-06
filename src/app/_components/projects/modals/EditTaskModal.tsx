@@ -5,7 +5,7 @@ import getStatusOptions from "@/app/_helpers/getStatusOptions";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import Modal from "../../shared/Modal";
 import useModalToggle from "@/app/_hooks/useModalToggle";
-import { Task } from "@/app/types/interfaces";
+import { Board, Column, Task } from "@/app/types/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
@@ -19,6 +19,7 @@ type Inputs = {
   title: string,
   description: string,
   subtasks: string[],
+  status: string
 }
 
 interface Props {
@@ -29,8 +30,8 @@ export default function EditTaskModal({task}: Props) {
  
   const {isOpen, setIsOpen, closeModal, openModal} = useModalToggle()
 
-  const boards = useAppSelector((state: RootState) => state.boards.value)
-  const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
+  const boards: Board[] = useAppSelector((state: RootState) => state.boards.value)
+  const currentBoard: Board = useAppSelector((state: RootState) => state.currentBoard.value)
   const dispatch = useAppDispatch()
   const statusOptionElements = getStatusOptions(currentBoard)
   const subtasksArray = task.subtasks 
@@ -42,6 +43,8 @@ export default function EditTaskModal({task}: Props) {
         formState: { errors }
     } = useForm<FormData>({
         defaultValues: {
+        // NEED TO FIX TS 
+        // @ts-ignore 
         subtasks: subtasksArray
         },
         mode: "onChange",
@@ -53,7 +56,11 @@ export default function EditTaskModal({task}: Props) {
         append,
         remove,
     } = useFieldArray({
+        // NEED TO FIX TS 
+        // @ts-ignore 
         control,
+        // NEED TO FIX TS 
+        // @ts-ignore 
         name: "subtasks",
     })
     
@@ -73,7 +80,7 @@ export default function EditTaskModal({task}: Props) {
     const originalTask = task
     const updatedTask = data
 
-    let updatedColumns = []
+    let updatedColumns: Column[] = []
 
     // status/column doesnt change
     if(updatedTask.status === originalTask.status) {
@@ -81,6 +88,8 @@ export default function EditTaskModal({task}: Props) {
         if(column.name === originalTask.status) {
             const updatedTasks =    column.tasks.map(task => task.title === originalTask.title ? updatedTask : task )    
             const updatedColumn = {...column, tasks: updatedTasks}
+            // NEED TO FIX TS 
+            // @ts-ignore 
             updatedColumns = [...updatedColumns, updatedColumn]
         } else {
             updatedColumns  = [...updatedColumns, column]
@@ -94,7 +103,7 @@ export default function EditTaskModal({task}: Props) {
         // orignal column- delete task
         if(column.name === originalTask.status) {
           // delete in original column
-          const updatedTasksInOriginalColumn =    column.tasks.filter(task => task.title != originalTask.title)
+          const updatedTasksInOriginalColumn = column.tasks.filter(task => task.title != originalTask.title)
           const updatedOriginalColumn = {...column, tasks: updatedTasksInOriginalColumn}
           updatedColumns = [...updatedColumns, updatedOriginalColumn]
         // new  column- add task
@@ -102,6 +111,8 @@ export default function EditTaskModal({task}: Props) {
           // add task to new column
           const updatedTasksInNewColumn =   [...column.tasks, updatedTask]
           const updatedNewColumn = {...column, tasks: updatedTasksInNewColumn}
+          // NEED TO FIX TS 
+          // @ts-ignore 
           updatedColumns = [...updatedColumns, updatedNewColumn]
         } else {
           updatedColumns  = [...updatedColumns, column]
@@ -118,6 +129,8 @@ export default function EditTaskModal({task}: Props) {
   return (
     <>
       <Modal buttonProps={<ButtonProps/>} isOpen={isOpen} closeModal={closeModal}>
+        {/* NEED TO FIX TS 
+        @ts-ignore  */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
           <button type="reset" 
             onClick={closeModal} className="ml-auto text-2xl bg-gray-200 hover:bg-gray-300 p-2 rounded-md mt-1 mr-1"> 
@@ -140,6 +153,8 @@ export default function EditTaskModal({task}: Props) {
           <label htmlFor="description">Description</label>
           <input 
             defaultValue={task.description}
+            // NEED TO FIX TS 
+            // @ts-ignore 
             {...register("description")} 
             className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2"
           />
@@ -150,8 +165,10 @@ export default function EditTaskModal({task}: Props) {
               return (
                   <li key={item.id} className="flex items-center">
                       <input
-                          {...register(`subtasks.${index}.title`, { required: true })}
-                          className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1"
+                        // NEED TO FIX TS 
+                        // @ts-ignore 
+                        {...register(`subtasks.${index}.title`, { required: true })}
+                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1"
                       />
                       <button 
                       type="button" 
@@ -175,6 +192,8 @@ export default function EditTaskModal({task}: Props) {
               <p>Status</p>
               <select 
                   id="status" 
+                  // NEED TO FIX TS 
+                  // @ts-ignore 
                   {...register("status")}  
                   className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 pl-2 outline-none focus:border-indigo-500 mb-2"
                   defaultValue={task.status}

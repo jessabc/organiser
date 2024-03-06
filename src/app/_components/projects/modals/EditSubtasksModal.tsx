@@ -7,7 +7,8 @@ import getNumCompletedSubtasks from "@/app/_helpers/getNumCompletedSubtasks"
 import getPercentage from "@/app/_helpers/getPercentage";
 import useModalToggle from "@/app/_hooks/useModalToggle";
 import Modal from "../../shared/Modal";
-import { Task } from "@/app/types/interfaces";
+import { Board, Column, Task } from "@/app/types/interfaces";
+import { ChangeEvent } from "react";
 
 interface Props {
   task: Task, 
@@ -26,8 +27,8 @@ export default function EditSubtasksModal({task, numCompletedSubtasks, setNumCom
     reset,
   } = useForm() 
 
-  const boards = useAppSelector((state: RootState) => state.boards.value)
-  const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
+  const boards: Board[] = useAppSelector((state: RootState) => state.boards.value)
+  const currentBoard: Board = useAppSelector((state: RootState) => state.currentBoard.value)
   const dispatch = useAppDispatch()
 
   const statusOptionElements = getStatusOptions(currentBoard) 
@@ -40,6 +41,8 @@ export default function EditSubtasksModal({task, numCompletedSubtasks, setNumCom
     setNumCompletedSubtasks(getNumCompletedSubtasks(task))
   }
 
+  // NEED TO FIX TS 
+  // @ts-ignore 
   function onSubmit(data) {
     const updatedSubtasks = task.subtasks.map((subtask, index) => {
       return {...subtask, isCompleted: data.subtasks[subtask.title] }
@@ -47,7 +50,7 @@ export default function EditSubtasksModal({task, numCompletedSubtasks, setNumCom
 
     const originalTask = task
     const updatedTask = {...task, subtasks: updatedSubtasks, status: data.status}
-    let updatedColumns = []
+    let updatedColumns: Column[] = []
 
     // status/column doesnt change
     if(updatedTask.status === originalTask.status) {
@@ -89,8 +92,10 @@ export default function EditSubtasksModal({task, numCompletedSubtasks, setNumCom
     closeModal()
   }
 
-  function handleChange(e) {
-    e.target.nextSibling.classList.toggle("line-through")
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    // NEED TO FIX TS 
+    // @ts-ignore 
+    e.target.nextSibling && e.target.nextSibling.classList.toggle("line-through") 
 
     // update count ie keep track of subtasks completed
     setNumCompletedSubtasks(prev => (
@@ -105,9 +110,10 @@ export default function EditSubtasksModal({task, numCompletedSubtasks, setNumCom
       onClick={openModal}
       className="text-gray-600 hover:text-gray-500 font-bold text-xs py-2 w-full"
       >
-      
         <div className="mb-2 text-left">
-          {`${numCompletedSubtasks} of ${task.subtasks.length} subtasks`}   
+          {`${numCompletedSubtasks} of ${task.subtasks.length} subtasks`}  
+            {/* NEED TO FIX TS  */}
+            {/* @ts-ignore   */}
             <div className="flex w-full h-1.5 bg-gray-400 rounded-full overflow-hidden dark:bg-gray-700 " role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100">
               <div className="flex flex-col justify-center rounded-full overflow-hidden bg-indigo-500   text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style={{width: `${percentage}%`}}></div>
             </div>
@@ -115,7 +121,6 @@ export default function EditSubtasksModal({task, numCompletedSubtasks, setNumCom
       </button>
     )
   } 
-
 
   return (
     <>
