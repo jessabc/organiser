@@ -39,6 +39,7 @@ export default function TransactionModal({ modalProps, thisTransaction }: Props)
         <TransactionForm 
           closeModal={closeModal} 
           modalProps={modalProps}
+          // @ts-ignore
           thisTransaction={thisTransaction}
         />
       </Modal>  
