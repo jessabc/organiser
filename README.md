@@ -4,8 +4,8 @@ This frontend app made with React uses previous UI and code from Frontend Mentor
 - Solution URL: [Github](https://github.com/jessabc/kanban-task-management)
 - Live Site URL: [Kanban Task Management](https://kanbantaskmanagement.netlify.app)
 
-The UI is also inspired by a recent Chingu Voyage Daily Tasker app 
-[Github](https://github.com/chingu-voyages/v47-tier2-team-10))
+The UI is also inspired by a recent Chingu Voyage - Daily Tasker app 
+[Github](https://github.com/chingu-voyages/v47-tier2-team-10)
   
 The app adds an expense tracker feature to make it an 'organiser' for the user.
 
@@ -28,7 +28,7 @@ Continuous improvements include adding Next.js features, Typescript, and a backe
 
 ### Links
 
-- Solution URL: [Github](https://github.com/jessabc/audiophile-next](https://github.com/jessabc/organiser)
+- Solution URL: [Github](https://github.com/jessabc/organiser)
 - Live Site URL: [Organiser]()
 
 ## My process
