@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import getAdvice from '@/app/_helpers/getAdvice'
 
-export default  function Header() {
+export default function Header() {
 
   const [advice, setAdvice] = useState('')
 

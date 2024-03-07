@@ -1,5 +1,6 @@
 "use client"
 
+import Head from 'next/head'
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/app/_redux/provider"
@@ -19,17 +20,19 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <ReduxProvider>
         <body className={`${inter.className} bg-gray-50 dark:bg-slate-900`}>
-          <Header/>
-          <SidebarToggle/>
-          <Sidebar/>
-          <MainContent>
-            {children}
-          </MainContent>
+          <ReduxProvider>
+            <Header/>
+            <SidebarToggle/>
+            <Sidebar/>
+            <MainContent>
+              {children}
+            </MainContent>
+            </ReduxProvider>
+         <PrelineScript /> 
        </body>
-      </ReduxProvider>
-      <PrelineScript />
+      
+      
     </html>
   );
 }

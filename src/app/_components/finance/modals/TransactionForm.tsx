@@ -105,7 +105,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
           className="ml-auto text-2xl bg-gray-200 hover:bg-gray-300 p-2 rounded-md mt-1 mr-1"
           onClick={closeModal}
         > 
-          <img src="/assets/icon-cross.svg" alt="cross icon to close modal"/> 
+          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg> 
         </button>
 
         <div className="flex flex-col">
