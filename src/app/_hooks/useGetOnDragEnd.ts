@@ -6,7 +6,7 @@ import { setCurrentBoard } from "../_redux/features/boards/currentBoardSlice"
 import { setAllBoards } from "../_redux/features/boards/boardsSlice"
 import { Board, Column } from "../types/interfaces"
 
-export default function getOnDragEnd(boards: Board[], currentBoard: Board, dispatch: Dispatch) {
+export default function useGetOnDragEnd(boards: Board[], currentBoard: Board, dispatch: Dispatch) {
 
   const [columns, setColumns] = useState()
     

@@ -4,7 +4,7 @@ import Column from "@/app/_components/projects/main-section/Column"
 import DeleteBoardModal from "@/app/_components/projects/modals/DeleteModal"
 import EditBoardModal from "@/app/_components/projects/modals/EditBoardModal"
 import deleteBoard from "@/app/_helpers/deleteBoard"
-import getOnDragEnd from "@/app/_helpers/getOnDragEnd"
+import useGetOnDragEnd from "@/app/_hooks/useGetOnDragEnd"
 import { setCurrentBoard } from "@/app/_redux/features/boards/currentBoardSlice"
 import { useAppDispatch, useAppSelector } from "@/app/_redux/hooks"
 import { RootState } from "@/app/_redux/store"
@@ -24,7 +24,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   thisBoard && dispatch(setCurrentBoard(thisBoard))
   const currentBoard: Board = useAppSelector((state: RootState) => state.currentBoard.value) 
 
-  const onDragEnd = getOnDragEnd(boards, currentBoard, dispatch)
+  const onDragEnd = useGetOnDragEnd(boards, currentBoard, dispatch)
 
   const columnEl = currentBoard?.columns.map((column, index) => <Column key={column.name} column={column}/>)
 
