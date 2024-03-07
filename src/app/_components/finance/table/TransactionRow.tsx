@@ -12,7 +12,6 @@ export default function TransactionRow({transaction}: Props) {
   const editModalProps = {
     openButtonText: "edit",
     header: "edit transaction",
-    thisTransaction: transaction
   }
       
   return (
@@ -27,7 +26,7 @@ export default function TransactionRow({transaction}: Props) {
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">${transaction.amount}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{new Date(transaction.date).toLocaleDateString()}</td>
       <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium flex gap-2">
-        <EditTransactionModal modalProps={editModalProps} />
+        <EditTransactionModal modalProps={editModalProps} thisTransaction={transaction}/>
         <DeleteTransactionModal thisTransaction={transaction}/>
       </td>
     </tr>
