@@ -33,11 +33,11 @@ interface Props {
   modalProps: {
     openButtonText: string,
     header: string,
-    thisTransaction: Transaction 
-  }
+  },
+  thisTransaction: Transaction 
 }
 
-export default function TransactionForm({closeModal, modalProps}: Props) {
+export default function TransactionForm({closeModal, modalProps, thisTransaction}: Props) {
 
   const [newCategoryVisible, setNewCategoryVisible] = useState(false)
   const [newCategory, setNewCategory] = useState("")
@@ -53,7 +53,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     // new transaction object
     const newTransaction =   {
-      id: modalProps.thisTransaction? modalProps.thisTransaction.id : Math.random(),
+      id: thisTransaction? thisTransaction.id : Math.random(),
       type: data.type,
       amount: parseInt(data.amount),
       date: data.date,
@@ -67,7 +67,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
       dispatch(setAllTransactions([...card.transactions, newTransaction]))
     } else {
       // else if edited transaction replace old transaction with edited transaction
-      const updatedTransactions = card.transactions.map(transaction => transaction.id === modalProps.thisTransaction.id ? newTransaction: transaction)
+      const updatedTransactions = card.transactions.map(transaction => transaction.id === thisTransaction.id ? newTransaction: transaction)
       dispatch(setAllTransactions(updatedTransactions))
     }
   
@@ -105,7 +105,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
           className="ml-auto text-2xl bg-gray-200 hover:bg-gray-300 p-2 rounded-md mt-1 mr-1"
           onClick={closeModal}
         > 
-          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fill-rule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg> 
+          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fillRule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg> 
         </button>
 
         <div className="flex flex-col">
@@ -122,7 +122,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
                 type="radio" 
                 value="income" 
                 id="income" 
-                defaultChecked = {modalProps.thisTransaction ?  modalProps.thisTransaction.type === "income" ? true : false : false}
+                defaultChecked = {thisTransaction ?  thisTransaction.type === "income" ? true : false : false}
                 className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label 
@@ -139,7 +139,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
                 type="radio" 
                 value="expense" 
                 id="expense" 
-                defaultChecked = {modalProps.thisTransaction ?  modalProps.thisTransaction.type === "expense" ? true : false : true} 
+                defaultChecked = {thisTransaction ?  thisTransaction.type === "expense" ? true : false : true} 
                 className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label 
@@ -160,7 +160,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
             type="number"
               id="amount" 
               {...register("amount")} 
-              defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.amount : ""} placeholder="20" 
+              defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.amount : ""} placeholder="20" 
               className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 ${errors.amount ? "focus:outline-error ": ""}`}/>
           </div>
 
@@ -174,7 +174,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
             type="date"
               id="date" 
               {...register("date")} 
-              defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.date : ""} 
+              defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.date : ""} 
               className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 ${errors.date ? "focus:outline-error ": ""}`}/>
           </div>
 
@@ -186,7 +186,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
             </div>
             <input 
               id="notes" 
-              defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.notes : ""} 
+              defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.notes : ""} 
                     placeholder="e.g. coffee and pastry" 
               {...register("notes")} 
               className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full ${errors.notes ? "focus:outline-error ": ""} `}/>
@@ -206,7 +206,7 @@ export default function TransactionForm({closeModal, modalProps}: Props) {
               id="category" 
               {...register("category")} 
               className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1  pl-2 outline-none focus:border-indigo-500 mb-2"
-              onChange={(e) => checkOnChange(e.target.value)} defaultValue={modalProps.openButtonText === "edit" ? modalProps.thisTransaction.category : ""}
+              onChange={(e) => checkOnChange(e.target.value)} defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.category : ""}
               >
                 <option label="--Select Category-- "></option>
                 {categories.map(option => (

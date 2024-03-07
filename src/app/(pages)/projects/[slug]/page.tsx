@@ -13,7 +13,7 @@ import { DragDropContext } from "react-beautiful-dnd"
 import { useRouter } from "next/navigation"
 import { Board } from "@/app/types/interfaces"
  
-export default function page({ params }: { params: { slug: string } }) {
+export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   const boards: Board[] = useAppSelector((state: RootState) => state.boards.value)
   const dispatch = useAppDispatch()

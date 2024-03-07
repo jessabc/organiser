@@ -11,7 +11,7 @@ import SortDropdown from "@/app/_components/finance/dropdown/SortDropdown";
 import getFilteredTransactions from "@/app/_helpers/getFilteredTransactions";
 import { useAppSelector } from "@/app/_redux/hooks";
 
-export default function page(){
+export default function TransactionsPage(){
 
   const [filterQuery, setFilterQuery] = useState("")
   const [sortQuery, setSortQuery] = useState("")

@@ -37,7 +37,7 @@ export default function Transaction({transaction}: Props) {
         </div>
 
         <div className="flex gap-2">
-          <EditTransactionModal modalProps={editModalProps} />
+          <EditTransactionModal modalProps={editModalProps} thisTransaction={transaction}/>
           <DeleteTransactionModal thisTransaction={transaction}/>
         </div>
           

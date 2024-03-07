@@ -37,7 +37,7 @@ export default function Home() {
       getInitialBoards()
       getInitialCard()
     }
-  }, [])
+  }, [boards.length, dispatch])
 
   return (
     <>     

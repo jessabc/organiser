@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { Dispatch } from "redux";
 import { setCurrentBoard } from "../_redux/features/boards/currentBoardSlice"
@@ -6,12 +8,14 @@ import { Board, Column } from "../types/interfaces"
 
 export default function getOnDragEnd(boards: Board[], currentBoard: Board, dispatch: Dispatch) {
 
-  const [columns, setColumns] = useState<Column[] | null>([])
+  const [columns, setColumns] = useState()
     
   useEffect(() => {
+    // @ts-ignore
     setColumns(currentBoard.columns)
   },[currentBoard])
   
+  // @ts-ignore
   const onDragEnd = ({ source, destination }) => { 
 
     // Make sure we have a valid destination
@@ -25,7 +29,9 @@ export default function getOnDragEnd(boards: Board[], currentBoard: Board, dispa
       return null
    
     // Set start and end variables
+    // @ts-ignore
     const start = columns.find(column => column.name === source.droppableId)
+    // @ts-ignore
     const end = columns.find(column => column.name === destination.droppableId)
 
     // If start is the same as end, we"re in the same column
@@ -33,6 +39,7 @@ export default function getOnDragEnd(boards: Board[], currentBoard: Board, dispa
       // Move the item within the list
       // Start by making a new list without the dragged item
       const newList = start.tasks.filter(
+        // @ts-ignore
         (_, idx) => idx !== source.index
       )
       // Then insert the item at the right location
@@ -47,6 +54,7 @@ export default function getOnDragEnd(boards: Board[], currentBoard: Board, dispa
 
       // Update the state
       setColumns(prev => (
+        // @ts-ignore
         prev.map(column => (
           column.name === newCol.name ? newCol : column
         ))
@@ -69,6 +77,7 @@ export default function getOnDragEnd(boards: Board[], currentBoard: Board, dispa
       // If start is different from end, we need to update multiple columns
       // Filter the start list like before
       const newStartList = start.tasks.filter(
+        // @ts-ignore
         (_, idx) => idx !== source.index
       )
 

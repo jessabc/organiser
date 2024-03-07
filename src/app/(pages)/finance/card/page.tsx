@@ -6,7 +6,7 @@ import CategorySection from "@/app/_components/finance/category-overview/Categor
 import IncomeExpenseCard from "@/app/_components/finance/income-expense-card/IncomeExpenseCard"
 import TransactionSection from "@/app/_components/finance/recent-transactions-overview/TransactionSection"
 
-export default function page() {
+export default function CardPage() {
 
   const incomeExpenseCardEl = ["Income", "Expense"].map(item => <IncomeExpenseCard key={item} type={item} />)
 

@@ -9,11 +9,11 @@ interface Props {
   modalProps: {
     openButtonText: string,
     header: string,
-    thisTransaction: Transaction 
-  }
+  },
+  thisTransaction?: Transaction 
 }
  
-export default function TransactionModal({ modalProps }: Props) {
+export default function TransactionModal({ modalProps, thisTransaction }: Props) {
 
   const {isOpen, setIsOpen, closeModal, openModal} = useModalToggle()
 
@@ -39,6 +39,7 @@ export default function TransactionModal({ modalProps }: Props) {
         <TransactionForm 
           closeModal={closeModal} 
           modalProps={modalProps}
+          thisTransaction={thisTransaction}
         />
       </Modal>  
     </>
