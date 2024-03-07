@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit"
 import { Board, Column, Task } from "../types/interfaces"
 
+// @ts-ignore
 export default function deleteTask(currentBoard: Board, task: Task, dispatch: Dispatch, boards: Board[], setAllBoards) {
  
   let updatedColumns: Column[] = []

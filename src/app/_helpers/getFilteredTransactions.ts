@@ -9,8 +9,10 @@ export default function getFilteredTransactions(card: Card, filterQuery: string 
 
     if(sortQuery && filteredTransactions) {
         if(sortQuery === "ascending") {
+            // @ts-ignore
             filteredTransactions = [...filteredTransactions].sort((a,b) => new Date(a.date) - new Date(b.date))
         } else if(sortQuery === "descending" ) { 
+            // @ts-ignore
             filteredTransactions = [...filteredTransactions].sort((a,b) => new Date(b.date) - new Date(a.date))
         }
     }
