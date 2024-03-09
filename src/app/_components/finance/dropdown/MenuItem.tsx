@@ -13,11 +13,11 @@ export default function MenuItem({item, setFilterQuery}: Props) {
         {({ active }) => (
             <button
             className={`${
-                active ? "bg-gray-100" : "text-gray-900"
+                active ? "bg-gray-100 dark:bg-gray-700" : "text-gray-900"
             } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
             onClick={() => setFilterQuery(item)}
             >
-              {item}
+              {item[0].toUpperCase() + item.slice(1, item.length)} 
             </button>
         )}
     </Menu.Item>
