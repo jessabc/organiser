@@ -77,7 +77,7 @@ export default function CreateNewBoardModal() {
                     <input 
                         id="name" 
                         {...register("name")} 
-                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2"/>
+                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100" />
 
                         <label>Columns</label>
                         <ul>
@@ -88,11 +88,11 @@ export default function CreateNewBoardModal() {
                                         // NEED TO FIX TS
                                         // @ts-ignore
                                         {...register(`columns.${index}.name`)}
-                                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1"/>
+                                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1 dark:text-zinc-100"/>
                                     <button 
                                     type="button" 
                                     onClick={() => remove(index)} 
-                                    className="cursor-pointer">
+                                    className="cursor-pointer dark:text-zinc-100">
                                         <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fillRule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg>
                                     </button>
                                 </li>
@@ -102,7 +102,7 @@ export default function CreateNewBoardModal() {
                         <button
                             type="button"
                             onClick={() => {append({id:"", name: "", tasks:[]})}}
-                            className="text-indigo-500 bg-gray-200 hover:bg-gray-300 rounded-full py-2 my-2 mt-3"
+                            className="text-indigo-500 bg-gray-200 hover:bg-gray-300 rounded-full py-2 my-2 mt-3 "
                         >
                             + Add New Column
                         </button>
@@ -110,7 +110,7 @@ export default function CreateNewBoardModal() {
                         <input 
                             type="submit" 
                             value="Create New Board" 
-                            className="text-gray-50 bg-indigo-500 hover:bg-indigo-400 rounded-full py-2 my-2 cursor-pointer" 
+                            className="text-gray-50 bg-indigo-500 hover:bg-indigo-400 rounded-full py-2 my-2 cursor-pointer " 
                         />
                 </form>
             </div>

@@ -154,14 +154,14 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
           <div className="flex flex-col gap-2 mb-5">
             <div className={`flex justify-between items-center`}>
               <label htmlFor="amount" className={`${errors.amount ? "text-error": ""}`}>Amount</label>
-              <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.amount?.message}</p>
+              <p className={`font-medium text-sm leading-4 tracking-tight text-error `}>{errors.amount?.message}</p>
             </div>
             <input 
             type="number"
               id="amount" 
               {...register("amount")} 
               defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.amount : ""} placeholder="20" 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 ${errors.amount ? "focus:outline-error ": ""}`}/>
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100 ${errors.amount ? "focus:outline-error dark:text-zinc-100": ""}`}/>
           </div>
 
           {/* date */}
@@ -175,7 +175,7 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
               id="date" 
               {...register("date")} 
               defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.date : ""} 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 ${errors.date ? "focus:outline-error ": ""}`}/>
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100 ${errors.date ? "focus:outline-error ": ""}`}/>
           </div>
 
           {/* notes */}
@@ -189,7 +189,7 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
               defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.notes : ""} 
                     placeholder="e.g. coffee and pastry" 
               {...register("notes")} 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full ${errors.notes ? "focus:outline-error ": ""} `}/>
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full dark:text-zinc-100 ${errors.notes ? "focus:outline-error ": ""} `}/>
           </div>
           
           {/* category */}
@@ -234,7 +234,7 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
               placeholder="e.g. gym" 
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)} 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full ${errors.notes ? "focus:outline-error ": ""} `}
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full dark:text-zinc-100 ${errors.notes ? "focus:outline-error ": ""} `}
             />  
           </div>
 

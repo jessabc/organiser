@@ -17,7 +17,7 @@ export default function TransactionRow({transaction}: Props) {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
-        <div className={`${transaction.type === "income" ? "bg-green-200" :"bg-red-200" } rounded-full p-2 text-xs uppercase flex items-center justify-center`}>
+        <div className={`${transaction.type === "income" ? "bg-green-200 dark:bg-green-400" :"bg-red-200 dark:bg-red-400" } rounded-full p-2 text-xs uppercase flex items-center justify-center`}>
         {transaction.type === "income" ? "income" : "expense" }
         </div>
       </td>

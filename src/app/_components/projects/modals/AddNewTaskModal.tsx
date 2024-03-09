@@ -79,7 +79,7 @@ export default function AddNewTaskModal() {
       <button
       type="button"
       onClick={openModal}
-      className="hover:bg-gray-100 rounded-lg"
+      className="hover:bg-gray-100 rounded-lg dark:hover:bg-gray-700"
       > 
         <div className="rounded-lg h-12 w-60 border-4 border-dashed border-gray-300"> 
           <p className="text-gray-300 font-semibold my-2">+ New Task</p>
@@ -139,7 +139,7 @@ export default function AddNewTaskModal() {
             <input 
               id="title" 
               {...register("title")} 
-              className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2"/>
+              className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100"/>
               
             {/* description */}
             <label htmlFor="description">Description</label>
@@ -148,7 +148,7 @@ export default function AddNewTaskModal() {
               // NEED TO FIX TS 
               // @ts-ignore  
               {...register("description")} 
-              className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2"/>
+              className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100"/>
 
             {/* subtasks */}
             <label htmlFor="subtasks">Subtasks</label>
@@ -162,7 +162,7 @@ export default function AddNewTaskModal() {
                         // NEED TO FIX TS 
                         // @ts-ignore 
                         {...register(`subtasks.${index}.title`, `subtasks.${index}.isCompleted:false`)}  
-                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1"
+                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1 dark:text-zinc-100"
                       />
               
                       <button 

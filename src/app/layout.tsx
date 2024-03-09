@@ -9,6 +9,7 @@ import Sidebar from "./_components/shared/sidebar/Sidebar";
 import MainContent from "./_components/shared/main/MainContent";
 import PrelineScript from "./components/PrelineScript";
 import SidebarToggle from "./_components/shared/sidebarToggle/SidebarToggle";
+import ThemeProvider from './provider'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
         <body className={`${inter.className} bg-gray-50 dark:bg-slate-900`}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem >
           <ReduxProvider>
             <Header/>
             <SidebarToggle/>
@@ -30,6 +32,7 @@ export default function RootLayout({
             </MainContent>
             </ReduxProvider>
          <PrelineScript /> 
+         </ThemeProvider>
        </body>
       
       

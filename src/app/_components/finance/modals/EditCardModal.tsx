@@ -68,7 +68,7 @@ export default function EditCardModal() {
             type="number"
             defaultValue={card.amount} 
             {...register("amount")} 
-            className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2" 
+            className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100" 
           />
 
           <input 

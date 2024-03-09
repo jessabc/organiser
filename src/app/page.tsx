@@ -46,7 +46,7 @@ export default function Home() {
           <Card/>
           {incomeExpenseCardEl}
         </div>
-        <div className="md:grid grid-cols-2 gap-7 -mt-10">
+        <div className="md:grid grid-cols-2 gap-7 lg:-mt-10">
           <TransactionSection/>
           <ProjectsSection/>
         </div>

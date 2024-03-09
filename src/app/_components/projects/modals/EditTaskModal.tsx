@@ -147,7 +147,7 @@ export default function EditTaskModal({task}: Props) {
           <input 
             defaultValue={task.title} 
             {...register("title")} 
-            className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2"
+            className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100"
           />
 
           <label htmlFor="description">Description</label>
@@ -156,7 +156,7 @@ export default function EditTaskModal({task}: Props) {
             // NEED TO FIX TS 
             // @ts-ignore 
             {...register("description")} 
-            className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2"
+            className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100"
           />
 
           <p>Subtasks</p>
@@ -168,7 +168,7 @@ export default function EditTaskModal({task}: Props) {
                         // NEED TO FIX TS 
                         // @ts-ignore 
                         {...register(`subtasks.${index}.title`, { required: true })}
-                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1"
+                        className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 w-full mr-1 dark:text-zinc-100"
                       />
                       <button 
                       type="button" 
