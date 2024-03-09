@@ -20,7 +20,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-        <body className={`${inter.className} bg-gray-50 dark:bg-slate-900`}>
+        <body className={`${inter.className} bg-gray-50 dark:bg-slate-900  [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500`}>
           <title>Organiser</title>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem >
           <ReduxProvider>
