@@ -1,6 +1,5 @@
 "use client"
 
-import Head from 'next/head'
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/app/_redux/provider"
@@ -22,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
         <body className={`${inter.className} bg-gray-50 dark:bg-slate-900`}>
+          <title>Organiser</title>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem >
           <ReduxProvider>
             <Header/>

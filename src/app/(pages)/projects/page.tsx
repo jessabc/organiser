@@ -4,6 +4,7 @@ import React from "react"
 export default function ProjectsPage() {
   return (
     <div>
+      <title>Organiser | Projects</title> 
       <ProjectsSection/>
     </div>
   )

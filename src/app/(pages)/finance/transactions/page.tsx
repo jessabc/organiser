@@ -28,6 +28,8 @@ export default function TransactionsPage(){
   }
 
   return (
+    <>
+    <title>Organiser | Transactions</title> 
     <div className="mb-10">
       <div className="flex flex-col sm:flex-row justify-between mb-5">
         <h3 className="font-bold text-xl mb-2">Transactions</h3>
@@ -44,6 +46,7 @@ export default function TransactionsPage(){
         <TransactionTable transactionRowEl={transactionRowEl}/>
       </div>
     </div>
+    </>
   )
 }
  

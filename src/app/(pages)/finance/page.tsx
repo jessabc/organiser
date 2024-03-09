@@ -6,6 +6,7 @@ import React from "react"
 export default function FinancePage() {
   return (
     <div>
+      <title>Organiser | Finance</title> 
       <TransactionSection/>
     </div>
   )

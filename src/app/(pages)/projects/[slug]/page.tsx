@@ -36,6 +36,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      <title>Organiser | Project</title> 
       <div className="mb-10">
         <div className="flex flex-col sm:flex-row justify-between mb-5">
           <h3 className="font-bold text-xl mb-2">{currentBoard?.name}</h3>

@@ -11,6 +11,8 @@ export default function CardPage() {
   const incomeExpenseCardEl = ["Income", "Expense"].map(item => <IncomeExpenseCard key={item} type={item} />)
 
   return (
+    <>
+    <title>Organiser | Card</title> 
     <div>
       <div className="flex flex-col gap-5 md:grid grid-cols-3">
         <Card/>
@@ -21,5 +23,6 @@ export default function CardPage() {
         <TransactionSection/>
       </div>
     </div>
+    </>
   )
 }

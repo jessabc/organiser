@@ -40,7 +40,8 @@ export default function Home() {
   }, [boards.length, dispatch])
 
   return (
-    <>     
+    <> 
+      <title>Organiser | Dashboard</title>    
       <div>
         <div className="flex flex-col gap-5 md:grid grid-cols-3 mb-10">
           <Card/>
