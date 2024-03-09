@@ -49,8 +49,9 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
   const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm<FormData>({
     resolver: yupResolver(schema)
   })
-  
+   
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
     // new transaction object
     const newTransaction =   {
       id: thisTransaction? thisTransaction.id : Math.random(),
