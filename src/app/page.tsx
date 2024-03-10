@@ -33,6 +33,7 @@ export default function Home() {
       dispatch(setAllTransactions(card.transactions))
     }
    
+    // need to fix this bc if all boards or transactions are deleted then it fetches again
     if(boards.length === 0) {
       getInitialBoards()
       getInitialCard()
