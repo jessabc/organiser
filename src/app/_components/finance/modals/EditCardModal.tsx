@@ -5,6 +5,7 @@ import { setCard } from "@/app/_redux/features/card/cardSlice";
 import Modal from "../../shared/Modal";
 import useModalToggle from "@/app/_hooks/useModalToggle";
 import { Card } from "@/app/types/interfaces";
+import { useEffect } from "react";
 
 export default function EditCardModal() {
 
@@ -13,18 +14,26 @@ export default function EditCardModal() {
   const card: Card = useSelector((state: RootState) => state.card.value)
   const dispatch = useDispatch()
 
-  const categories = (card.categories).slice(1)
+  const amount = card?.amount
 
   const {
       register,
       control,
       handleSubmit,
+      reset
   } = useForm({
       defaultValues: {
-      amount: card.amount,
+      amount: amount,
       },
       mode: "onChange"
   })
+
+  useEffect(() => {
+    reset({
+      // NEED TO FIX TS
+      // @ts-ignore
+      amount: amount})
+  }, [amount, reset])
   
   function onSubmit(data:any) { 
     const editedCard = {
@@ -66,7 +75,7 @@ export default function EditCardModal() {
           <label htmlFor="amount">Amount</label>
           <input 
             type="number"
-            defaultValue={card.amount} 
+            defaultValue={amount ? amount : ''} 
             {...register("amount")} 
             className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100" 
           />
