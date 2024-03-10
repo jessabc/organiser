@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import getAdvice from '@/app/_helpers/getAdvice'
 import ThemeSwitch from '../../ThemeSwitch'
+import getGreeting from '@/app/_helpers/getGreeting'
 
 export default function Header() {
 
-  const [advice, setAdvice] = useState('')
+  // const [advice, setAdvice] = useState('')
 
-  useEffect(() => {
-    async function getSetAdvice() {
-      const advice = await getAdvice()
-      setAdvice(advice) 
-    }
-    getSetAdvice() 
-  }, [])
+  const greeting = getGreeting()
+
+  // useEffect(() => {
+  //   async function getSetAdvice() {
+  //     const advice = await getAdvice()
+  //     setAdvice(advice) 
+  //   }
+  //   getSetAdvice() 
+  // }, [])
   
   return (
     <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap  w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64 dark:bg-gray-800 dark:border-gray-700 z-[5]">
@@ -24,17 +27,21 @@ export default function Header() {
         </div>
 
         <div className="w-full flex items-center justify-end ms-auto lg:justify-between sm:gap-x-3 sm:order-3">
-          {advice ? 
+
+          <h2 className='text-xl text-gray-700 dark:text-white font-bold hidden lg:flex'>{`${greeting}, Guest!`}</h2>
+
+          {/* advice api */}
+          {/* {advice ? 
           (<div className=' hidden lg:flex'>
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-quote rotate-180" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /><path d="M19 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /></svg>
               <h2 className='text-xl text-gray-700 dark:text-white font-bold '>{advice}</h2>
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-quote" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /><path d="M19 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /></svg>
           </div>) :
           <Skeleton/>
-          }
+          } */}
          
-          <div className="flex flex-row items-center justify-end gap-2">
-            {/* ADD DARK MODE IN THE FUTURE */}
+          <div className="flex flex-row items-center justify-end gap-3">
+            {/* dark mode */}
             <ThemeSwitch/>
 
             {/* avatar and dropdown */}
