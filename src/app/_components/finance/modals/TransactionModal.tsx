@@ -22,7 +22,7 @@ export default function TransactionModal({ modalProps, thisTransaction }: Props)
       <button
              type="button"
              onClick={openModal}
-             className={` ${modalProps.openButtonText === "new" ? "rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75" : "hover:text-gray-500" }`}
+             className={` ${modalProps.openButtonText === "new" ? "rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75" : "hover:text-gray-500 dark:hover:text-gray-600" }`}
            >
              {modalProps.openButtonText === "new" ? 
              (<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>)

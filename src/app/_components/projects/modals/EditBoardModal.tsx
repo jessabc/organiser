@@ -94,7 +94,7 @@ export default function EditBoardModal({boards, currentBoard}: Props) {
       <button
       type="button"
       onClick={openModal}
-      className={`${pathname === "/" || pathname === "/projects" ? "hover:text-gray-500 " : "rounded-md bg-indigo-500  px-4 py-2 text-sm font-medium text-white hover:bg-indigo-400  focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"}`}
+      className={`${pathname === "/" || pathname === "/projects" ? "hover:text-gray-500 dark:hover:text-gray-600" : "rounded-md bg-indigo-500  px-4 py-2 text-sm font-medium text-white hover:bg-indigo-400  focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"}`}
     >
       <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="18" height="18" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
     </button>
