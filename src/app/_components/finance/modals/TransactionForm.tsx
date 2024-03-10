@@ -74,9 +74,9 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
   
     // update card amount ie either plus or minus new transaction amount
     if(data.type === "income") {
-      dispatch(updateAmount(card.amount + parseInt(data.amount)))
+      dispatch(updateAmount(card.amount && card.amount + parseInt(data.amount)))
     } else {
-      dispatch(updateAmount(card.amount - parseInt(data.amount)))
+      dispatch(updateAmount(card.amount && card.amount - parseInt(data.amount)))
     }
     
     //  if new category, add new category to category array
