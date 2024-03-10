@@ -37,7 +37,7 @@ export interface Subtask {
 
 // cardData
 export interface Card {
-    amount:       number;
+    amount:       number | null;
     categories:   string[];
     transactions: Transaction[];
 }
