@@ -81,11 +81,15 @@ export default function EditBoardModal({boards, currentBoard}: Props) {
     closeModal()
     reset()
   }
-
+ 
   const onSubmit: SubmitHandler<Inputs> = (data) => { 
     const updatedBoards = boards.map(board => board.name === currentBoard.name ? data : board)
-    dispatch(setAllBoards(updatedBoards)) 
-    router.push(`/projects/${data.name}`)
+    dispatch(setAllBoards(updatedBoards))
+  
+    if(pathname.includes("%20") ? pathname.replace("%20", " ") : pathname === `/projects/${currentBoard.name}`) {
+      router.push(`/projects/${data.name}`)
+    } 
+ 
     setIsOpen(false)
   }
  
