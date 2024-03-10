@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import DeleteBoardModal from "../../..//_components/projects/modals/DeleteModal";
 import Link from "next/link"
 import { Board } from "../../..//types/interfaces"
+import { usePathname } from "next/navigation";
 
 interface Props {
   board: Board
@@ -18,11 +19,12 @@ export default function BoardCard({board}: Props) {
   const currentBoard = useAppSelector((state: RootState) => state.currentBoard.value)
   const dispatch = useAppDispatch()
   const router = useRouter()
-  
+  const pathname = usePathname()
+   
   const deleteProps = {
     headerText: "Delete board dashboard",
-    paragraphText: `Are you sure you want to delete the "${currentBoard?.name}" board? This action will remove all columns and tasks and cannot be reversed.`,
-    onDelete: () => deleteBoard(boards, currentBoard, dispatch, router)
+    paragraphText: `Are you sure you want to delete the "${board?.name}" board? This action will remove all columns and tasks and cannot be reversed.`,
+    onDelete: () => deleteBoard(boards, board, dispatch, router, pathname)
   }
       
   return (
@@ -31,7 +33,7 @@ export default function BoardCard({board}: Props) {
         {board.name}
       </Link>
       <div className="flex gap-2">
-        <EditBoardModal boards={boards} currentBoard={currentBoard}/>
+        <EditBoardModal boards={boards} currentBoard={board}/>
         <DeleteBoardModal deleteProps={deleteProps}/>
       </div>
     </div>

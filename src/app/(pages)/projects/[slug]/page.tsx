@@ -12,12 +12,14 @@ import React from "react"
 import { DragDropContext } from "react-beautiful-dnd"
 import { useRouter } from "next/navigation"
 import { Board } from "@/app/types/interfaces"
- 
+import { usePathname } from "next/navigation";
+
 export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   const boards: Board[] = useAppSelector((state: RootState) => state.boards.value)
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const pathname = usePathname()
    
   let thisBoardName = params.slug.replace("%20", " ")
   const thisBoard = boards.find(board => board?.name === thisBoardName)
@@ -31,7 +33,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   const deleteProps = {
     headerText: "Delete this board?",
     paragraphText: `Are you sure you want to delete the "${currentBoard?.name}" task and its subtasks? This action cannot be reversed`,
-    onDelete: () =>  deleteBoard(boards, currentBoard, dispatch, router)
+    onDelete: () =>  deleteBoard(boards, currentBoard, dispatch, router, pathname)
   }
 
   return (
