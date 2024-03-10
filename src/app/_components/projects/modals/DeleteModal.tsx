@@ -1,6 +1,5 @@
 "use client"
-import { useAppSelector } from "@/app/_redux/hooks"
-import { RootState } from "@/app/_redux/store"
+
 import { usePathname } from "next/navigation"
 import useModalToggle from "@/app/_hooks/useModalToggle"
 import Modal from "../../shared/Modal"
@@ -30,6 +29,11 @@ export default function DeleteModal({deleteProps}: Props) {
       )
     } 
 
+    const handleDeleteClick = () => {
+      deleteProps.onDelete()
+      closeModal()
+    }
+
   return (
     <>
       <Modal buttonProps={<ButtonProps/>} isOpen={isOpen} closeModal={closeModal}>
@@ -46,7 +50,9 @@ export default function DeleteModal({deleteProps}: Props) {
 
             <div className="flex gap-2 mt-3">
               <button 
-                onClick={deleteProps.onDelete} 
+                onClick={
+                  handleDeleteClick
+                } 
                 className="bg-red-400 text-white rounded-full py-2 w-1/2 hover:bg-red-500">
               Delete
               </button>
