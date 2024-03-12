@@ -25,14 +25,14 @@ export default function SortDropdown({setSortQuery}: Props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute left-0 sm:right-0 sm:left-auto mt-2 w-40 origin-top-right divide-y divide-gray-200 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-            <div className="px-1 py-1">
+          <Menu.Items className="absolute left-0 sm:right-0 sm:left-auto mt-2 w-40 origin-top-right divide-y divide-gray-200 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none dark:bg-gray-800 dark:border dark:border-gray-700">
+            <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (
                   <button
                   className={`${
                       active ? "bg-gray-100 dark:bg-gray-700" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm dark:text-gray-400`}
                   onClick={() => setSortQuery("descending")}
                   >
                     Date 
@@ -45,7 +45,7 @@ export default function SortDropdown({setSortQuery}: Props) {
                   <button
                   className={`${
                       active ? "bg-gray-100 dark:bg-gray-700" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm dark:text-gray-400`}
                   onClick={() => setSortQuery("ascending")}
                   >
                     Date 
@@ -60,7 +60,7 @@ export default function SortDropdown({setSortQuery}: Props) {
                   <button
                   className={`${
                       active ? "bg-gray-100 dark:bg-gray-700" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm dark:text-gray-400`}
                   onClick={() => setSortQuery("")}
                   >
                     Clear Sort
