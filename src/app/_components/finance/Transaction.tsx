@@ -17,7 +17,7 @@ export default function Transaction({transaction}: Props) {
 
   return (
     <>
-      <div className="flex items-center justify-between h-20 bg-opacity-40  p-2 bg-white border shadow-sm rounded-xl">
+      <div className="flex items-center justify-between h-20 bg-opacity-40  p-2 bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
 
         <div className="w-1/4 flex justify-center items-center">
         <div className={`${transaction.type === "income" ? "bg-green-200 dark:bg-green-400" :"bg-red-200 dark:bg-red-400" } rounded-full p-2`}>

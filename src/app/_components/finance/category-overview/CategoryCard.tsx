@@ -25,3 +25,4 @@ export default function CategoryCard({category, transactions}: Props) {
     </div>
   )
 }
+ 

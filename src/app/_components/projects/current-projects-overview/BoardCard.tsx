@@ -28,7 +28,7 @@ export default function BoardCard({board}: Props) {
   }
       
   return (
-    <div className="flex justify-between gap-5 h-20 bg-opacity-40 items-center py-2 px-8 bg-white border shadow-sm rounded-xl">
+    <div className="flex justify-between gap-5 h-20 bg-opacity-40 items-center py-2 px-8 bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
       <Link href={`/projects/${board.name}`} className="font-semibold hover:text-gray-600">
         {board.name}
       </Link>
