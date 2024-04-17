@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/app/_redux/hooks";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Column } from "@/app/types/interfaces";
+import { IColumn } from "@/app/types/interfaces";
 
 const schema = yup
   .object({
@@ -20,7 +20,7 @@ type FormData = yup.InferType<typeof schema>;
 
 type Inputs = {
   name: string;
-  columns: Column[];
+  columns: IColumn[];
 };
 
 export default function CreateNewBoardModal() {
