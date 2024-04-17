@@ -5,8 +5,14 @@ import { Board } from "../types/interfaces";
 export default function deleteBoard(
   boards: Board[],
   currentBoard: Board,
+  // TS TO FIX
+  // @ts-ignore
   dispatch,
+  // TS TO FIX
+  // @ts-ignore
   router,
+  // TS TO FIX
+  // @ts-ignore
   pathname
 ) {
   const updatedBoards = boards?.filter(
