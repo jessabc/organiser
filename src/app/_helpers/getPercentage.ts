@@ -1,8 +1,8 @@
-import { Task } from "../types/interfaces";
+import { ITask } from "../types/interfaces";
 
 export default function getPercentage(
   numCompletedSubtasks: number,
-  task: Task
+  task: ITask
 ) {
   return Math.trunc((numCompletedSubtasks / task.subtasks.length) * 100);
 }
