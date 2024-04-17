@@ -5,10 +5,10 @@ import { setAllTransactions } from "@/app/_redux/features/card/cardSlice";
 import { RootState } from "@/app/_redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../shared/Modal";
-import { Card, Transaction } from "@/app/types/interfaces";
+import { Card, ITransaction } from "@/app/types/interfaces";
 
 interface Props {
-  thisTransaction: Transaction;
+  thisTransaction: ITransaction;
 }
 
 export default function DeleteTransactionModal({ thisTransaction }: Props) {
