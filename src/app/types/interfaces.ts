@@ -2,51 +2,50 @@
 
 // projectsData
 export interface Board {
-    id:      number;
-    name:    string;
-    columns: Column[];
+  id: number;
+  name: string;
+  columns: IColumn[];
 }
 
-export interface Column {
-    id:    number;
-    name:  string;
-    tasks: Task[];
+export interface IColumn {
+  id: number;
+  name: string;
+  tasks: ITask[];
 }
 
-export interface Task {
-    id:          number;
-    title:       string;
-    description: string;
-    status:      Status;
-    statusId:    number;
-    subtasks:    Subtask[];
+export interface ITask {
+  id: number;
+  title: string;
+  description: string;
+  status: Status;
+  statusId: number;
+  subtasks: Subtask[];
 }
 
 export enum Status {
-    Doing = "Doing",
-    Done = "Done",
-    Now = "Now",
-    Todo = "Todo",
+  Doing = "Doing",
+  Done = "Done",
+  Now = "Now",
+  Todo = "Todo",
 }
 
 export interface Subtask {
-    title:       string;
-    isCompleted: boolean;
+  title: string;
+  isCompleted: boolean;
 }
-
 
 // cardData
 export interface Card {
-    amount:       number | null;
-    categories:   string[];
-    transactions: Transaction[];
+  amount: number | null;
+  categories: string[];
+  transactions: ITransaction[];
 }
 
-export interface Transaction {
-    id:       number;
-    type:     string;
-    amount:   number;
-    date:     string;
-    category: string;
-    notes:    string;
+export interface ITransaction {
+  id: number;
+  type: string;
+  amount: number;
+  date: string;
+  category: string;
+  notes: string;
 }

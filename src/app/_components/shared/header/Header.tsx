@@ -131,8 +131,8 @@ export default function Header() {
   );
 }
 
-function Skeleton() {
-  return (
-    <div className="h-10 bg-opacity-40  py-2 rounded-xl w-1/2  bg-gray-200  dark:bg-gray-700 animate-pulse"></div>
-  );
-}
+// function Skeleton() {
+//   return (
+//     <div className="h-10 bg-opacity-40  py-2 rounded-xl w-1/2  bg-gray-200  dark:bg-gray-700 animate-pulse"></div>
+//   );
+// }

@@ -1,151 +1,199 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { useForm, SubmitHandler } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
-import { RootState } from "@/app/_redux/store"
-import { updateAmount, updateCategories } from "@/app/_redux/features/card/cardSlice"
-import { setAllTransactions } from "@/app/_redux/features/card/cardSlice"
-import { Card, Transaction } from "@/app/types/interfaces"
- 
-const schema = yup.object({
-  type: yup.string().required("Transaction Type is a required field"),
-  notes: yup.string().required("Notes is a required field"),
-  amount:yup.string().required("Amount is a required field"),
-  category: yup.string().required("Category is a required field"),
-  date: yup.string().required("date is a required field"),
-}).required();
- 
-type FormData = yup.InferType<typeof schema>
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { RootState } from "@/app/_redux/store";
+import {
+  updateAmount,
+  updateCategories,
+} from "@/app/_redux/features/card/cardSlice";
+import { setAllTransactions } from "@/app/_redux/features/card/cardSlice";
+import { Card, ITransaction } from "@/app/types/interfaces";
+
+const schema = yup
+  .object({
+    type: yup.string().required("Transaction Type is a required field"),
+    notes: yup.string().required("Notes is a required field"),
+    amount: yup.string().required("Amount is a required field"),
+    category: yup.string().required("Category is a required field"),
+    date: yup.string().required("date is a required field"),
+  })
+  .required();
+
+type FormData = yup.InferType<typeof schema>;
 
 type Inputs = {
-  type: string,
-  amount: string,
-  date: string
-  category:  string
-  notes: string
-}
+  type: string;
+  amount: string;
+  date: string;
+  category: string;
+  notes: string;
+};
 
 interface Props {
-  closeModal: () => void,
+  closeModal: () => void;
   modalProps: {
-    openButtonText: string,
-    header: string,
-  },
-  thisTransaction: Transaction 
+    openButtonText: string;
+    header: string;
+  };
+  thisTransaction: ITransaction;
 }
 
-export default function TransactionForm({closeModal, modalProps, thisTransaction}: Props) {
+export default function TransactionForm({
+  closeModal,
+  modalProps,
+  thisTransaction,
+}: Props) {
+  const [newCategoryVisible, setNewCategoryVisible] = useState(false);
+  const [newCategory, setNewCategory] = useState("");
 
-  const [newCategoryVisible, setNewCategoryVisible] = useState(false)
-  const [newCategory, setNewCategory] = useState("")
+  const card: Card = useSelector((state: RootState) => state.card.value);
+  const { amount, categories } = useSelector(
+    (state: RootState) => state.card.value
+  );
+  const dispatch = useDispatch();
 
-  const card: Card = useSelector((state: RootState) => state.card.value) 
-  const {amount, categories} = useSelector((state: RootState) => state.card.value)   
-  const dispatch = useDispatch()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm<FormData>({
-    resolver: yupResolver(schema)
-  })
-   
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+    console.log(data);
     // new transaction object
-    const newTransaction =   {
-      id: thisTransaction? thisTransaction.id : Math.random(),
+    const newTransaction = {
+      id: thisTransaction ? thisTransaction.id : Math.random(),
       type: data.type,
       amount: parseInt(data.amount),
       date: data.date,
-      category:  data.category === "Add New Category" ? newCategory : data.category,
+      category:
+        data.category === "Add New Category" ? newCategory : data.category,
       notes: data.notes,
-    }
+    };
 
     // if new transaction then
-    if(modalProps.openButtonText === "new") {
+    if (modalProps.openButtonText === "new") {
       // add new transaction to transactions array
-      dispatch(setAllTransactions([...card.transactions, newTransaction]))
+      dispatch(setAllTransactions([...card.transactions, newTransaction]));
     } else {
       // else if edited transaction replace old transaction with edited transaction
-      const updatedTransactions = card.transactions.map(transaction => transaction.id === thisTransaction.id ? newTransaction: transaction)
-      dispatch(setAllTransactions(updatedTransactions))
+      const updatedTransactions = card.transactions.map((transaction) =>
+        transaction.id === thisTransaction.id ? newTransaction : transaction
+      );
+      dispatch(setAllTransactions(updatedTransactions));
     }
-  
+
     // update card amount ie either plus or minus new transaction amount
-    if(data.type === "income") {
-      dispatch(updateAmount(card.amount && card.amount + parseInt(data.amount)))
+    if (data.type === "income") {
+      dispatch(
+        updateAmount(card.amount && card.amount + parseInt(data.amount))
+      );
     } else {
-      dispatch(updateAmount(card.amount && card.amount - parseInt(data.amount)))
+      dispatch(
+        updateAmount(card.amount && card.amount - parseInt(data.amount))
+      );
     }
-    
+
     //  if new category, add new category to category array
-    if(newCategory) {
-      dispatch(updateCategories([...categories, newCategory]))
+    if (newCategory) {
+      dispatch(updateCategories([...categories, newCategory]));
     }
 
     reset();
-    closeModal()      
-  } 
-    
+    closeModal();
+  };
+
   const checkOnChange = (value: string) => {
-    if(value === "Add New Category") {
-      setNewCategoryVisible(true)
+    if (value === "Add New Category") {
+      setNewCategoryVisible(true);
     } else {
-      setNewCategoryVisible(false) 
-      setNewCategory("")
+      setNewCategoryVisible(false);
+      setNewCategory("");
     }
-  }
+  };
 
   return (
     <>
       {/* form */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <button 
-          type="reset" 
+        <button
+          type="reset"
           className="ml-auto text-2xl bg-gray-200 hover:bg-gray-300 p-2 rounded-md mt-1 mr-1"
           onClick={closeModal}
-        > 
-          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg"><g fill="#828FA3" fillRule="evenodd"><path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"/><path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"/></g></svg> 
+        >
+          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#828FA3" fillRule="evenodd">
+              <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+              <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+            </g>
+          </svg>
         </button>
 
         <div className="flex flex-col">
-          <h3 className="font-semibold text-lg text-gray-900 mb-5 dark:text-zinc-100">{modalProps.openButtonText === "new" ? "Add New" : "Edit"} Transaction</h3>
+          <h3 className="font-semibold text-lg text-gray-900 mb-5 dark:text-zinc-100">
+            {modalProps.openButtonText === "new" ? "Add New" : "Edit"}{" "}
+            Transaction
+          </h3>
 
           {/* income/expense radio button */}
           <div className="flex flex-col gap-1 mb-5">
             <label htmlFor="amount">Transaction Type</label>
-            <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.type?.message}</p>
+            <p
+              className={`font-medium text-sm leading-4 tracking-tight text-error`}
+            >
+              {errors.type?.message}
+            </p>
             <div className={``}>
               {/* income */}
-              <input 
-                {...register("type")} 
-                type="radio" 
-                value="income" 
-                id="income" 
-                defaultChecked = {thisTransaction ?  thisTransaction.type === "income" ? true : false : false}
+              <input
+                {...register("type")}
+                type="radio"
+                value="income"
+                id="income"
+                defaultChecked={
+                  thisTransaction
+                    ? thisTransaction.type === "income"
+                      ? true
+                      : false
+                    : false
+                }
                 className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
-              <label 
-                htmlFor="income" 
-                className="text-sm text-gray-500 ms-2 dark:text-gray-400"> 
+              <label
+                htmlFor="income"
+                className="text-sm text-gray-500 ms-2 dark:text-gray-400"
+              >
                 Income
-              </label> 
+              </label>
             </div>
 
             <div>
               {/* expense */}
-              <input 
-                {...register("type")} 
-                type="radio" 
-                value="expense" 
-                id="expense" 
-                defaultChecked = {thisTransaction ?  thisTransaction.type === "expense" ? true : false : true} 
+              <input
+                {...register("type")}
+                type="radio"
+                value="expense"
+                id="expense"
+                defaultChecked={
+                  thisTransaction
+                    ? thisTransaction.type === "expense"
+                      ? true
+                      : false
+                    : true
+                }
                 className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
-              <label 
-                htmlFor="expense" 
-                className="text-sm text-gray-500 ms-2 dark:text-gray-400"> 
+              <label
+                htmlFor="expense"
+                className="text-sm text-gray-500 ms-2 dark:text-gray-400"
+              >
                 Expense
               </label>
             </div>
@@ -154,97 +202,157 @@ export default function TransactionForm({closeModal, modalProps, thisTransaction
           {/* amount */}
           <div className="flex flex-col gap-2 mb-5">
             <div className={`flex justify-between items-center`}>
-              <label htmlFor="amount" className={`${errors.amount ? "text-error": ""}`}>Amount</label>
-              <p className={`font-medium text-sm leading-4 tracking-tight text-error `}>{errors.amount?.message}</p>
+              <label
+                htmlFor="amount"
+                className={`${errors.amount ? "text-error" : ""}`}
+              >
+                Amount
+              </label>
+              <p
+                className={`font-medium text-sm leading-4 tracking-tight text-error `}
+              >
+                {errors.amount?.message}
+              </p>
             </div>
-            <input 
-            type="number"
-              id="amount" 
-              {...register("amount")} 
-              defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.amount : ""} placeholder="20" 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100 ${errors.amount ? "focus:outline-error dark:text-zinc-100": ""}`}/>
+            <input
+              type="number"
+              id="amount"
+              {...register("amount")}
+              defaultValue={
+                modalProps.openButtonText === "edit"
+                  ? thisTransaction.amount
+                  : ""
+              }
+              placeholder="20"
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100 ${
+                errors.amount ? "focus:outline-error dark:text-zinc-100" : ""
+              }`}
+            />
           </div>
 
           {/* date */}
           <div className="flex flex-col gap-2 mb-5">
             <div className={`flex justify-between items-center`}>
-              <label htmlFor="date" className={`${errors.date ? "text-error": ""}`}>Date</label>
-              <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.date?.message}</p>
+              <label
+                htmlFor="date"
+                className={`${errors.date ? "text-error" : ""}`}
+              >
+                Date
+              </label>
+              <p
+                className={`font-medium text-sm leading-4 tracking-tight text-error`}
+              >
+                {errors.date?.message}
+              </p>
             </div>
-            <input 
-            type="date"
-              id="date" 
-              {...register("date")} 
-              defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.date : ""} 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100 ${errors.date ? "focus:outline-error ": ""}`}/>
+            <input
+              type="date"
+              id="date"
+              {...register("date")}
+              defaultValue={
+                modalProps.openButtonText === "edit" ? thisTransaction.date : ""
+              }
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 dark:text-zinc-100 ${
+                errors.date ? "focus:outline-error " : ""
+              }`}
+            />
           </div>
 
           {/* notes */}
           <div className={``}>
             <div className={`flex justify-between items-center`}>
-              <label htmlFor="notes"  className={` ${errors.notes ? "text-error": ""}`}>Notes</label>
-              <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.notes?.message}</p>
+              <label
+                htmlFor="notes"
+                className={` ${errors.notes ? "text-error" : ""}`}
+              >
+                Notes
+              </label>
+              <p
+                className={`font-medium text-sm leading-4 tracking-tight text-error`}
+              >
+                {errors.notes?.message}
+              </p>
             </div>
-            <input 
-              id="notes" 
-              defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.notes : ""} 
-                    placeholder="e.g. coffee and pastry" 
-              {...register("notes")} 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full dark:text-zinc-100 ${errors.notes ? "focus:outline-error ": ""} `}/>
+            <input
+              id="notes"
+              defaultValue={
+                modalProps.openButtonText === "edit"
+                  ? thisTransaction.notes
+                  : ""
+              }
+              placeholder="e.g. coffee and pastry"
+              {...register("notes")}
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full dark:text-zinc-100 ${
+                errors.notes ? "focus:outline-error " : ""
+              } `}
+            />
           </div>
-          
+
           {/* category */}
           <section className="my-2 flex flex-col ">
             <div className={`flex justify-between items-center`}>
-              <label 
-                htmlFor="category" 
-                className={` ${errors.category ? "text-error": ""}`}>
+              <label
+                htmlFor="category"
+                className={` ${errors.category ? "text-error" : ""}`}
+              >
                 Category
               </label>
-              <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.category?.message}</p>
-            </div>
-            <select 
-              id="category" 
-              {...register("category")} 
-              className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1  pl-2 outline-none focus:border-indigo-500 mb-2"
-              onChange={(e) => checkOnChange(e.target.value)} defaultValue={modalProps.openButtonText === "edit" ? thisTransaction.category : ""}
+              <p
+                className={`font-medium text-sm leading-4 tracking-tight text-error`}
               >
-                <option label="--Select Category-- "></option>
-                {categories.map(option => (
-                  <option key={option} value={option}>{option}</option> 
-                  
-                ))}
+                {errors.category?.message}
+              </p>
+            </div>
+            <select
+              id="category"
+              {...register("category")}
+              className="border-2 border-solid border-gray-300 rounded-sm py-1 my-1  pl-2 outline-none focus:border-indigo-500 mb-2"
+              onChange={(e) => checkOnChange(e.target.value)}
+              defaultValue={
+                modalProps.openButtonText === "edit"
+                  ? thisTransaction.category
+                  : ""
+              }
+            >
+              <option label="--Select Category-- "></option>
+              {categories.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
             </select>
           </section>
 
           {/* new category */}
           <div className={`${newCategoryVisible ? "block" : "hidden"}`}>
             <div className={`flex justify-between items-center`}>
-              <label 
-              htmlFor="newCategory" 
-              //    NEED TO FIX
-              // className={`${errors.newCategory?.message ? "text-error": ""}`}
+              <label
+                htmlFor="newCategory"
+                //    NEED TO FIX
+                // className={`${errors.newCategory?.message ? "text-error": ""}`}
               >
-              New Category
-              </label> 
+                New Category
+              </label>
               {/* NEED TO FIX */}
               {/* <p className={`font-medium text-sm leading-4 tracking-tight text-error`}>{errors.newCategory?.message}</p> */}
             </div>
-            <input 
-              id="newCategory" 
-              placeholder="e.g. gym" 
+            <input
+              id="newCategory"
+              placeholder="e.g. gym"
               value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)} 
-              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full dark:text-zinc-100 ${errors.notes ? "focus:outline-error ": ""} `}
-            />  
+              onChange={(e) => setNewCategory(e.target.value)}
+              className={`border-2 border-solid border-gray-300 rounded-sm py-1 my-1 text-gray-900 pl-2 outline-none focus:border-indigo-500 mb-2 w-full dark:text-zinc-100 ${
+                errors.notes ? "focus:outline-error " : ""
+              } `}
+            />
           </div>
 
-          <input 
-            type="submit" 
+          <input
+            type="submit"
             className="text-gray-50 bg-indigo-500 hover:bg-indigo-400 rounded-full py-2 my-2 cursor-pointer"
-            />
+          />
         </div>
       </form>
     </>
-  )
+  );
 }
