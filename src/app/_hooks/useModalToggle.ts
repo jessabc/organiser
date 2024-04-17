@@ -1,18 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
 export default function useModalToggle() {
-
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
-  
-  return {isOpen, setIsOpen, closeModal, openModal}
+
+  return { isOpen, setIsOpen, closeModal, openModal };
 }
