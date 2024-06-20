@@ -34,20 +34,20 @@ export default function Column({ column }: Props) {
     //credit to https://dev.to/imjoshellis/codealong-multi-column-drag-and-drop-in-react-3781
     <Droppable droppableId={column.name}>
       {(provided) => (
-        <div {...provided.droppableProps} ref={provided.innerRef}>
-          <div className="flex flex-col items-start gap-2 mb-2 w-60 pt-10 justify-between">
+        <div {...provided.droppableProps} ref={provided.innerRef} className="">
+          <div className="flex flex-col items-start gap-2 mb-2 pt-10 justify-between ">
             <div className="flex gap-1 items-center">
               <p className="uppercase text-gray-500 font-semibold tracking-wider text-sm">
                 {column.name} ({column.tasks.length})
               </p>
             </div>
-            <div className="my-2">
+            <div className="my-2 ">
               <AddNewTaskModal />
             </div>
           </div>
 
           {column.tasks.length === 0 && (
-            <div className="rounded-lg  h-screen w-60 border-4 border-dashed border-gray-300"></div>
+            <div className="rounded-lg  h-screen w-52 border-4 border-dashed border-gray-300 "></div>
           )}
 
           <div>{taskElements}</div>

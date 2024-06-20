@@ -55,11 +55,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </div>
 
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {columnEl}
-          </div>
+          <div className="flex flex-wrap gap-5">{columnEl}</div>
         </DragDropContext>
       </div>
     </>
   );
 }
+// grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 bg-green-500
