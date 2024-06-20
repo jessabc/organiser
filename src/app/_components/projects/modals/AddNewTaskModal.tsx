@@ -82,7 +82,7 @@ export default function AddNewTaskModal() {
         onClick={openModal}
         className="hover:bg-gray-100 rounded-lg dark:hover:bg-gray-700"
       >
-        <div className="rounded-lg h-12 w-60 border-4 border-dashed border-gray-300">
+        <div className="rounded-lg h-12 w-52 border-4 border-dashed border-gray-300">
           <p className="text-gray-300 font-semibold my-2">+ New Task</p>
         </div>
       </button>

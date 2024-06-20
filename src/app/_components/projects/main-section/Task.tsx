@@ -45,7 +45,7 @@ export default function Task({ task, index }: Props) {
             {...provided.dragHandleProps}
           >
             {/* Task Card */}
-            <div className="cursor-grab dahover:dark:bg-zinc-700 flex flex-col my-3  p-3 h-40 w-60  hover:shadow-lg justify-between bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+            <div className="cursor-grab dahover:dark:bg-zinc-700 flex flex-col my-3  p-3 h-40 w-52 hover:shadow-lg justify-between bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
               <p className="text-gray-900 font-bold pt-2 dark:text-zinc-200 line-clamp-2 ">
                 {task.title}
               </p>
